@@ -1,0 +1,8 @@
+. filter=lfs diff=lfs merge=lfs -text
+db.sqlite3 filter=lfs diff=lfs merge=lfs -text
+viewer/models/yolov3-tiny-admin.weights filter=lfs diff=lfs merge=lfs -text
+viewer/models/yolov3-tiny-cabin.weights filter=lfs diff=lfs merge=lfs -text
+viewer/models/yolov3-tiny-sitting-1.weights filter=lfs diff=lfs merge=lfs -text
+viewer/models/yolov3-tiny-sitting.weights filter=lfs diff=lfs merge=lfs -text
+viewer/models/yolov3-tiny-cabin_1.weights filter=lfs diff=lfs merge=lfs -text
+viewer/models/yolov3-tiny-cabin_2.weights filter=lfs diff=lfs merge=lfs -text
