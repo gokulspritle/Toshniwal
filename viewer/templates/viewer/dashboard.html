@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Dashboard</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/feather/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/base/vendor.bundle.base.css' %}">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+
+    <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/flag-icon-css/css/flag-icon.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/font-awesome/css/font-awesome.min.css' %}">
+    
+    <!-- End plugin css for this page -->
+    
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static 'toshniwal_static/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'toshniwal_static/css/admin_dashboard.css' %}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="{% static '/toshniwal_static/images/Logo%20alone.png' %}" />
+    
+    <link href="{% static 'toshniwal_static/css/jquery.dataTables.css' %}" rel="stylesheet" />
+    <link href="{% static 'toshniwal_static/css/buttons.dataTables.css' %}" rel="stylesheet" />
+
+
+</head>
+
+<body class="sidebar-icon-only">
+    <style>
+        .dt-button buttons-pdf buttons-html5 {
+            border: 1px solid #DDD;
+            background: none;
+            background-color: #ffffff;
+            border-radius: 4px;
+            font-size: 14px;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+            padding: 6px 10px;
+        }
+    </style>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+                style="    background: lightcyan;height: 80px;">
+                <a class="navbar-brand brand-logo" href="index.html"><img src="{% static 'toshniwal_static/images/logo.svg' %}"
+                        alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="index.html"><img style="width: 80%;height:80%;"
+                        src="{% static 'toshniwal_static/images/Logo alone.png' %}" alt="logo" /></a>
+            </div>
+            <div style="background-color: #14aed575;height: 80px;" class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button> -->
+                <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item d-none d-lg-block">
+                        <!-- <h4 class="font-weight-bold text-dark">AI Driven Fuel Station Management</h4> -->
+                        <h4 class="font-weight-bold text-dark">
+                            <img style="width:100%; margin-top: 20px;" src="{% static 'toshniwal_static/images/logo-4.png' %}" alt="logo" />
+                            <!-- <h4 class="text-info">ADMIN DASHBOARD</h4> -->
+                        </h4>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+
+                    <li class="nav-item dropdown d-flex mr-4 ">
+						<a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
+							id="notificationDropdown" href="#" data-toggle="dropdown">
+							<i class="fa fa-cog"></i>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+							aria-labelledby="notificationDropdown">
+							
+							<a href="logout" class="dropdown-item preview-item">
+								<i class="fas fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
+					</li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="icon-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+           <nav class="sidebar sidebar-offcanvas" id="sidebar">
+				<div id="userP" class="user-profile">
+					<a href="/viewer" style="color:white">
+						<div class="user-image">
+							<i class="fa fa-user" style="font-size:24px"></i>
+						</div>
+						<div class="user-name">
+							Proprietor Name Owner
+						</div>
+
+					</a>
+				</div>
+				<div id="adminP" class="user-profile">
+					<a href="/viewer/CamSettings" style="color:white">
+						<div class="user-image">
+							<i class="fa fa-camera" style="font-size:24px"></i>
+						</div>
+						<div class="user-name">
+							Camera Settings
+						</div>
+					</a>
+				</div>
+
+
+				<div  class="user-profile">
+					<a href="/viewer/dashboard" style="color:white">
+						<div class="user-image">
+							<i style="font-size:24px" class="fa fa-cube" aria-hidden="true"></i>
+						</div>
+						<div class="user-name">
+							Dashboard
+						</div>
+					</a>
+
+				</div>
+
+
+				<div id="superP" class="user-profile">
+					<a href="/viewer/addUser" style="color:white">
+						<div class="user-image">
+							<i style="font-size:25px" class="mdi mdi-account-multiple-plus menu-icon"></i>
+						</div>
+						<div class="user-name">
+							Add User
+						</div>
+					</a>
+				</div>
+
+			</nav>
+        <!-- partial -->
+        <div class="main-panel">
+
+            <!-- 2nd section starts -->
+            <div class="row mt-3">
+                <div class="col-xl-3 flex-column d-flex grid-margin stretch-card">
+                    <div style="margin-left: 0;" class="row flex-grow">
+                        <div class="col-sm-12 grid-margin stretch-card">
+                            <div class="card br-20">
+                                <div class="card-body">
+
+
+                                    <h4 class="card-title">Overall safety statistics
+                                        <!-- <button type="button"
+                                            class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                                class="mdi mdi-security"></i></button> -->
+                                        &nbsp;&nbsp;
+
+                                        <button id="safety_statistics_pie"
+                                            class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                                class="mdi mdi-chart-pie"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button id="safety_statistics_bar"
+                                            class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                                class="mdi mdi-chart-bar"></i></button>
+                                    </h4>
+
+                                    <p>23% increase in safety compliance this week</p>
+
+                                    <div id="overall_safety_statistics_chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 stretch-card">
+                            <div class="card br-20">
+                                <div class="card-body">
+                                    <h4 class="card-title">Overall productivity efficiency
+                                        <!-- <button type="button"
+                                            class="btn btn-social-icon btn-linkedin btn-rounded wh-28"><i
+                                                class="mdi mdi-factory"></i></button> --> &nbsp;&nbsp;
+                                        <button id="productivity_statistics_pie"
+                                            class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                                class="mdi mdi-chart-pie"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button id="productivity_statistics_bar"
+                                            class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                                class="mdi mdi-chart-bar"></i></button>
+                                    </h4>
+                                    <p>18% increase in productivity this week </p>
+
+
+                                    <div id="overall_productivity_efficiency_chart"></div>
+                                    <!-- <canvas id="ope"></canvas> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-9 d-flex grid-margin stretch-card">
+                    <div class="card br-20">
+                        <div class="card-body">
+
+                            <div class="dis_in">
+                                <h4 class="card-title dot">
+                                    Safety Critical Events
+                                </h4>
+                            </div>
+
+                            <div class="table-responsive" style="overflow-x: visible;">
+                                <table class="table table-hover" id="events_table">
+                                    <thead>
+                                        <tr>
+                                            <th class="title_h">T.ID</th>
+                                            <th class="title_h">Time</th>
+                                            <th class="title_h">Event Type</th>
+                                            <th class="title_h">Location</th>
+                                            <th class="title_h">Action Center</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="incident_report">
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 2nd section ends -->
+            <!-- 3nd section starts -->
+            <div class="people count grid-margin bg-white br-20 p-sm-3 ">
+                <div class="row">
+                    <div class="col-lg-7 grid-margin stretch-card">
+                        <div class="card br-20">
+                            <div class="card-body">
+                                <div class="dis_in">
+                                    <h4 class="card-title dot">
+                                        REPORTS </h4>
+
+                                    <select id="feature" class="form-control">
+
+                                    </select>
+                                    <br>
+
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="feature_table" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="title_h">T.ID</th>
+
+                                                <th class="title_h">Time</th>
+                                                <th class="title_h">Incident</th>
+                                                <th class="title_h">Location</th>
+                                                <th class="title_h">Action Center</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="alerts_by_feature">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 grid-margin stretch-card">
+                        <div class="card br-20">
+
+                            <div class="card-body">
+                                <h4 class="card-title dot"> No of Violations
+                                    &nbsp;&nbsp;
+                                    <button id="Violations_statistics_pie"
+                                        class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                            class="mdi mdi-chart-pie"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button id="Violations_statistics_bar"
+                                        class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                            class="mdi mdi-chart-bar"></i></button>
+                                </h4>
+                                <select id="location" class="form-control">
+
+                                </select>
+
+                                <div style="margin-left: 60px;margin-top: 66px;" id="crowd_gathering_chart_6"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-6 grid-margin stretch-card">
+                    <div class="card br-20">
+
+                        <div class="card-body">
+                            <h1 class="card-title dot">Total No. Of Violations
+                                &nbsp;&nbsp;
+                                <button id="week_statistics_pie"
+                                    class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                        class="mdi mdi-chart-pie"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="week_statistics_bar"
+                                    class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                        class="mdi mdi-chart-bar"></i></button>
+                            </h1>
+                            <select id="violations" class="form-control">
+                                <option value="week">By Week</option>
+                                <option value="month">By Month</option>
+                            </select>
+                            <div id="crowd_gathering_chart_2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 grid-margin stretch-card">
+                    <div class="card br-20">
+
+                        <div class="card-body">
+                            <h6 class="card-title dot"> No. Of Violations by Rooms :
+                                &nbsp;&nbsp;
+                                <button id="room_statistics_pie"
+                                    class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                        class="mdi mdi-chart-pie"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="room_statistics_bar"
+                                    class="btn btn-social-icon btn-twitter btn-rounded wh-28"><i
+                                        class="mdi mdi-chart-bar"></i></button>
+                            </h6>
+                            <select id="violationspie" class="form-control">
+                                <option value="month">By Month</option>
+                                <option value="week">By Week</option>
+                            </select>
+                            <div  id="pie_chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- 3nd section ends -->
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a
+                    href="https://www.spritle.com/" target="_blank" class="text-muted">Spritle Software</a>. All rights
+                reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
+                    class="icon-heart"></i> by <a href="https://spritle.com">Spritle</a></span>
+        </div>
+    </footer>
+
+    <!-- base:js -->
+    <script src="{% static 'toshniwal_static/vendors/base/vendor.bundle.base.js' %}"></script>
+    <script src="{% static 'toshniwal_static/js/off-canvas.js' %}"></script>
+    <script src="{% static 'toshniwal_static/js/hoverable-collapse.js' %}"></script>
+    <script src="{% static 'toshniwal_static/js/template.js' %}"></script>
+    <script src="{% static 'toshniwal_static/js/apexcharts.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'toshniwal_static/js/moment.min.js' %}"></script>
+
+    <script src="{% static 'toshniwal_static/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'toshniwal_static/js/jszip.min.js' %}"></script>
+    <script src="{% static 'toshniwal_static/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'toshniwal_static/js/pdfmake.min.js' %}"></script>
+    <script src="{% static 'toshniwal_static/js/vfs_fonts.js' %}"></script>
+    <script src="{% static 'toshniwal_static/js/buttons.html5.min.js' %}"></script>
+    <!-- End custom js for this page-->
+
+
+
+    <script>
+        //data table 
+        $.fn.dataTableExt.sErrMode = 'throw';
+
+        var colors = ['#008FFB', '#008FFB', '#008FFB', '#008FFB', '#008FFB', '#008FFB', '#008FFB'];
+        $.get("db_analytics/safety", function (data, status) {
+            var Nval = []
+            var Ndays = []
+
+
+
+            for (i = 0; i < data.length; i++) {
+                days = data[i].day.split('-')
+                // console.log(days)
+                if (days[1] != 'Sun') {
+                    Nval.push(data[i].count)
+                    Ndays.push(days[0])
+                }
+
+
+            }
+            Nval.reverse();
+            Ndays.reverse();
+            
+            var options1 = {
+                series: [{
+                    data: Nval
+                }],
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    events: {
+                        click: function (chart, w, e) {
+                            // console.log(chart, w, e)
+                        }
+                    }
+                },
+                colors: colors,
+                plotOptions: {
+                    bar: {
+                        columnWidth: '45%',
+                        distributed: true
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                legend: {
+                    show: false
+                },
+                xaxis: {
+                    categories: Ndays,
+                    labels: {
+                        style: {
+                            colors: colors,
+                            fontSize: '12px'
+                        }
+                    }
+                }
+            };
+
+            var options11 = {
+                series: Nval,
+                chart: {
+                    width: 380,
+                    type: 'pie',
+                },
+                labels: Ndays,
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart1 = new ApexCharts(document.querySelector("#overall_safety_statistics_chart"), options1);
+            chart1.render();
+
+            $('#safety_statistics_pie').click(function(){
+                
+                chart1.destroy()
+                chart1 = new ApexCharts(document.getElementById('overall_safety_statistics_chart'), options11);
+                chart1.render();
+                
+            })
+
+            $('#safety_statistics_bar').click(function(){
+                chart1.destroy();
+                chart1 = new ApexCharts(document.querySelector("#overall_safety_statistics_chart"), options1);
+                chart1.render();
+            })
+
+        });
+
+
+
+        $.get("db_analytics/productivity", function (data, status) {
+            var Nval = []
+            var Ndays = []
+
+
+
+            for (i = 0; i < data.length; i++) {
+                days = data[i].day.split('-')
+
+                if (days[1] != 'Sun') {
+                    Nval.push(data[i].count)
+                    Ndays.push(days[0])
+                }
+
+
+            }
+            Nval.reverse();
+            Ndays.reverse();
+
+            var options2 = {
+                series: [{
+                    data: Nval
+                }],
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    events: {
+                        click: function (chart, w, e) {
+                            // console.log(chart, w, e)
+                        }
+                    }
+                },
+                colors: colors,
+                plotOptions: {
+                    bar: {
+                        columnWidth: '45%',
+                        distributed: true
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                legend: {
+                    show: false
+                },
+                xaxis: {
+                    categories: Ndays,
+                    labels: {
+                        style: {
+                            colors: colors,
+                            fontSize: '12px'
+                        }
+                    }
+                }
+            };
+
+
+            var options21 = {
+                series: Nval,
+                chart: {
+                    width: 380,
+                    type: 'pie',
+                },
+                labels: Ndays,
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart2 = new ApexCharts(document.querySelector("#overall_productivity_efficiency_chart"),
+                options2);
+            chart2.render();
+
+
+            $('#productivity_statistics_pie').click(function(){
+                
+                chart2.destroy()
+                chart2 = new ApexCharts(document.getElementById('overall_productivity_efficiency_chart'), options21);
+                chart2.render();
+                
+            })
+
+            $('#productivity_statistics_bar').click(function(){
+                chart2.destroy();
+                chart2 = new ApexCharts(document.querySelector("#overall_productivity_efficiency_chart"), options2);
+                chart2.render();
+            })
+
+
+        });
+
+
+
+        const capitalize = (s) => {
+            if (typeof s !== 'string') return ''
+            return s.charAt(0).toUpperCase() + s.slice(1)
+        }
+
+        //events_table
+        $.get('db_analytics/incident_report', function (data) {
+            var ele = '';
+
+
+            for (i = 0; i < data.length; i++) {
+                dt = new Date(data[i].time)
+                if (dt.getDay() != 0) {
+                    j = i + 1
+                    ele += '<tr> <td nowrap>' + j + '</td> <td nowrap >' + data[i].time + '</td><td nowrap>' +
+                        capitalize(data[i].event_type) +
+                        '</td><td>' + capitalize(data[i].location) + '</td>' +
+                        '<td nowrap><a type="button" href="incident_report/' + data[i].t_id +
+                        '" class="btn btn-primary">View Incident</a></td></tr>'
+                }
+            }
+
+
+            $('#incident_report').html(ele);
+
+            $('#events_table').DataTable({
+                dom: 'Bfrtip',
+                "pageLength": 15,
+                buttons: [{
+                        extend: 'excel',
+                        text: 'Excel <i style="color:green;font-size: 20px;margin-top:3px;" class="mdi mdi-file-excel"></i>',
+                        title: 'Process Table',
+                        filename: 'Report',
+
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'PDF <i style="color:red;font-size: 20px;margin-top:3px;" class="mdi mdi-file-pdf-box"></i>',
+                        title: 'Process Table',
+                        filename: 'Report'
+                    }, {
+                        extend: 'csv',
+                        text: 'CSV <i style="color:blue;font-size: 20px;margin-top:3px;" class="mdi mdi-file-outline"></i>',
+                        filename: 'Report'
+                    }
+                ]
+            });
+
+        });
+
+
+        function groupArrayOfObjects(list, key) {
+            return list.reduce(function (rv, x) {
+                (rv[x[key]] = rv[x[key]] || []).push(x);
+                return rv;
+            }, {});
+        };
+
+
+
+        $.get('db_analytics/incident_report', function (res) {
+            var groupedPeople = groupArrayOfObjects(res, "location");
+            Object.keys(groupedPeople).forEach(function (key) {
+                $('#location').append('<option value="' + key + '">' + key + '</option>')
+
+            });
+            $('#location').trigger("change");
+        });
+
+
+        $.get('db_analytics/incident_report', function (res) {
+            var groupedPeople = groupArrayOfObjects(res, "event_type");
+            Object.keys(groupedPeople).forEach(function (key) {
+
+                $('#feature').append('<option value="' + key + '">' + key + '</option>')
+
+            });
+            $('#feature').trigger("change");
+        });
+
+        $('#feature').on('change', function () {
+            $.get('db_analytics/incident_report', function (data) {
+
+                var ele = '';
+                option = $('#feature').val()
+
+                for (i = 0; i < data.length; i++) {
+                    dt = new Date(data[i].time)
+
+                    if ($('#feature').val() == data[i].event_type && dt.getDay() != 0) {
+                        j = i + 1
+                        ele += '<tr> <td >' + j + '</td><td nowrap>' + data[i].time + '</td> <td >' +
+                            capitalize(data[i].event_type) + '</td><td>' + capitalize(data[i]
+                                .location) + '</td>' +
+                            '<td><a type="button"  href="incident_report/' + data[i].t_id +
+                            '" class="btn btn-primary">View Incident</a></td></tr>'
+                    }
+
+                }
+
+                $('#alerts_by_feature').html(ele);
+
+                $('#feature_table').DataTable({
+                    dom: 'Bfrtip',
+                    "pageLength": 6,
+                    buttons: [{
+                            extend: 'excel',
+                            text: 'Excel <i style="color:green;font-size: 20px;margin-top:5px;" class="mdi mdi-file-excel"></i>',
+                            title: 'Process Table',
+                            filename: 'Report',
+
+                        },
+                        {
+                            extend: 'pdf',
+                            text: 'PDF <i style="color:red;font-size: 20px;margin-top:5px;" class="mdi mdi-file-pdf-box"></i>',
+                            title: 'Process Table',
+                            filename: 'Report'
+                        }, {
+                            extend: 'csv',
+                            text: 'CSV <i style="color:blue;font-size: 20px;margin-top:5px;" class="mdi mdi-file-outline"></i>',
+                            filename: 'Report'
+                        }
+                    ]
+                });
+
+            });
+
+
+
+
+        });
+
+
+
+        $('#location').on('change', function () {
+
+            Ntime = []
+            Nval = []
+            $.get('db_analytics/incident_report', function (data) {
+
+                for (i = 0; i < data.length; i++) {
+
+                    dt = new Date(data[i].time)
+
+                    if ($('#location').val() == data[i].location && dt.getDay() != 0) {
+
+                        Ntime.push(data[i].time.split(',')[0])
+                        Nval.push(data[i].alert_level)
+
+                    }
+                }
+              
+                var options3 = {
+                    series: [{
+                        data: Nval
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'bar',
+                        events: {
+                            click: function (chart, w, e) {
+
+                            }
+                        }
+                    },
+                    colors: colors,
+                    plotOptions: {
+                        bar: {
+                            columnWidth: '45%',
+                            distributed: true
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    legend: {
+                        show: false
+                    },
+                    xaxis: {
+                        categories: Ntime,
+                        labels: {
+                            style: {
+                                colors: colors,
+                                fontSize: '12px'
+                            }
+                        }
+                    }
+                };
+
+
+                var options31 = {
+                    series: Nval,
+                    chart: {
+                        width: 380,
+                        type: 'pie',
+                    },
+                    labels: Ntime,
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                };
+
+
+
+                $('#crowd_gathering_chart_6').html('')
+                var chart3 = new ApexCharts(document.querySelector("#crowd_gathering_chart_6"),options3);
+                chart3.render();
+
+               
+    
+    
+                $('#Violations_statistics_pie').click(function(){
+                    
+                    chart3.destroy()
+                    chart3 = new ApexCharts(document.getElementById('crowd_gathering_chart_6'), options31);
+                    chart3.render();
+                    
+                })
+    
+                $('#Violations_statistics_bar').click(function(){
+                    chart3.destroy();
+                    chart3 = new ApexCharts(document.querySelector("#crowd_gathering_chart_6"), options3);
+                    chart3.render();
+                })
+    
+
+
+            });
+        });
+
+
+
+        var options4 = {
+            series: [{
+                name: 'No.of occurance',
+                type: 'column',
+                data: []
+            }, {
+                name: 'All rooms',
+                type: 'line',
+                data: []
+            }],
+            chart: {
+                height: 350,
+                type: 'line',
+            },
+            stroke: {
+                width: [0, 4]
+            },
+            title: {
+                // text: 'Traffic Sources'
+            },
+            dataLabels: {
+                enabled: true,
+                enabledOnSeries: [1]
+            },
+            labels: [],
+            xaxis: {
+                type: 'date'
+            },
+            yaxis: [{
+                title: {
+                    text: 'No. of occurance',
+                },
+
+            }, {
+                opposite: true,
+                title: {
+                    text: 'All rooms'
+                }
+            }]
+        };
+
+        
+
+
+        Object.size = function (obj) {
+            var size = 0,
+                key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
+
+        function violationChart(isByMonth) {
+            $.getJSON('viewer_alertDB', function (data) {
+                var res = JSON.parse(data)
+                //console.log(res);
+                var byweek = {};
+                var a = res.map(function (value, index, array) {
+                    var d = moment(value.fields.alert_start_time).toDate();
+
+                    if (isByMonth) {
+                        d = (d.getFullYear() - 1970) * 12 + d.getMonth();
+                    } else {
+                        d = Math.floor(d.getTime() / (1000 * 60 * 60 * 24 * 7));
+                    }
+
+                    byweek[d] = byweek[d] || [];
+                    byweek[d].push(value);
+                    return byweek;
+                });
+
+                var xdata = [],
+                    xlabel = [],
+                    linedata = [];
+                var inx = 1;
+                var mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov',
+                    'Dec'
+                ];
+                var dTotel = 0;
+                $.each(byweek, function (k, v) {
+                    xdata.push(v.length);
+                    if (isByMonth) {
+                        xlabel.push(mS[inx - 1])
+                    } else {
+                        xlabel.push('Week ' + inx)
+                    }
+
+                    inx++;
+                    var obj = {};
+                    $(v).each(function (i, e) {
+                        var cname = e.fields.cam_name;
+                        cname == "" ? cname = "Unknown" : cname;
+                        obj[cname] === undefined ? obj[cname] = [] : '';
+                        obj[cname].push(e);
+                    });
+                    linedata.push(Object.size(obj))
+                    dTotel += Object.size(obj)
+                });
+                
+                options4.series[0].data = xdata;
+
+
+                var options41 = {
+                    series: xdata,
+                    chart: {
+                        width: 380,
+                        type: 'pie',
+                    },
+                    labels: xlabel,
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                };
+
+                options4.labels = xlabel;
+                $("#crowd_gathering_chart_2").html('');
+                var chart4 = new ApexCharts($("#crowd_gathering_chart_2")[0], options4);
+                chart4.render();
+
+
+
+                $('#week_statistics_pie').click(function(){
+                    chart4.destroy()
+                    chart4 = new ApexCharts(document.getElementById('crowd_gathering_chart_2'), options41);
+                    chart4.render();
+                    
+                })
+        
+                $('#week_statistics_bar').click(function(){
+                    chart4.destroy();
+                    chart4 = new ApexCharts(document.querySelector("#crowd_gathering_chart_2"), options4);
+                    chart4.render();
+                })
+            });
+        }
+
+        violationChart(false);
+
+        $('#violations').change(function () {
+            violationChart($(this).val() === 'month')
+        })
+        $('#violationspie').change(function () {
+            violationPieChart($(this).val() === 'month')
+        })
+
+
+        var options5 = {
+            series: [],
+            chart: {
+                width: 380,
+                type: 'pie',
+            },
+            labels: [],
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+
+
+        
+
+
+
+
+
+       
+
+        function violationPieChart(isByMonth) {
+            $.getJSON('viewer_alertDB', function (data) {
+                var res = JSON.parse(data)
+
+                var obj = {},
+                    xdata = [],
+                    xlabel = [];
+                $(res).each(function (i, e) {
+                    if (e.fields.cam_name === 'cabin') {
+
+                    }
+                    if (moment(e.fields.alert_start_time).isSame(new Date(), (isByMonth ? 'month' :
+                            'week'))) {
+                        var cname = e.fields.cam_name;
+
+                        cname == "" ? cname = "Unknown" : cname;
+                        obj[cname] === undefined ? obj[cname] = [] : '';
+                        obj[cname].push(e);
+                    }
+                });
+                $.each(obj, function (k, v) {
+                    xlabel.push(k);
+
+                    xdata.push(v.length);
+                })
+
+                options5.series = xdata;
+                options5.labels = xlabel;
+                $("#pie_chart").html('')
+
+
+
+                var options51 = {
+                    series: [{
+                        data: xdata
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'bar',
+                        events: {
+                            click: function (chart, w, e) {
+        
+                            }
+                        }
+                    },
+                    colors: colors,
+                    plotOptions: {
+                        bar: {
+                            columnWidth: '45%',
+                            distributed: true
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    legend: {
+                        show: false
+                    },
+                    xaxis: {
+                        categories: xlabel,
+                        labels: {
+                            style: {
+                                colors: colors,
+                                fontSize: '12px'
+                            }
+                        }
+                    }
+                };
+
+
+                var chart5 = new ApexCharts(document.querySelector("#pie_chart"), options5);
+                chart5.render();
+
+
+                $('#room_statistics_bar').click(function(){
+            
+                    chart5.destroy()
+                    chart5 = new ApexCharts(document.getElementById('pie_chart'), options51);
+                    chart5.render();
+                    
+                })
+        
+                $('#room_statistics_pie').click(function(){
+                    chart5.destroy();
+                    chart5 = new ApexCharts(document.querySelector("#pie_chart"), options5);
+                    chart5.render();
+                })
+        
+        
+        
+            });
+        }
+        violationPieChart(true)
+
+
+
+$.get('userAcess', function (data) {
+                console.log(data);
+                if (data['is_staff'] == false && data['superuser'] == false) {
+                    $('#superP').hide();
+                    $('#adminP').hide();
+                    $('#user_role').html('User');
+
+                } else if (data['is_staff'] == true && data['superuser'] == false) {
+                    $('#superP').hide();
+                    $('#user_role').html('Admin');
+                } else
+                    $('#user_role').html('Super User');
+
+            });
+
+
+
+
+
+           
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (settings.type.toUpperCase() == "POST") {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+            }
+        });
+
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+       
+    </script>
+</body>
+
+
+
+
+
+
+</html>

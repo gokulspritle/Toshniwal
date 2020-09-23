@@ -1,0 +1,8 @@
+use_opencv = False
+use_vidgear = False
+sound_alerts = True
+in_between_alerts_thresh = 5
+x_thresh=19
+y_thresh=15
+no_view = False
+refresh_show = 2

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>People Counting - Dashboard</title>
+	<!-- base:css -->
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/mdi/css/materialdesignicons.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/feather/feather.css' %}" />
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/base/vendor.bundle.base.css' %}" />
+	<!-- endinject -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/flag-icon-css/css/flag-icon.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'toshniwal_static/font-awesome/css/font-awesome.min.css' %}">
+
+
+
+	<!-- plugin css for this page -->
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/flag-icon-css/css/flag-icon.min.css' %}" />
+
+
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" href="{% static 'toshniwal_static/css/style.css' %}" />
+	<!-- endinject -->
+	<link rel="shortcut icon" href="{% static 'toshniwal_static/images/Logo alone.png' %}" />
+</head>
+
+<body class="sidebar-icon-only">
+
+	<script>
+		if (!!window.EventSource) {
+			var source4 = new EventSource("getData");
+			source4.onmessage = function (e) {
+				var y = e.data;
+				console.log(y);
+				obj = JSON.parse(y);
+				stat = obj[0].substring(1, obj[0].length - 1);
+				if (stat == "STOREROOM IS WITHIN LIMIT") {
+					$("#server_messages").attr("style", "white-space: pre; color: green");
+				} else if (stat == "STOREROOM HAS EXCEEDED SIZE LIMIT") {
+					$("#server_messages").attr("style", "white-space: pre; color: red");
+				} else {
+					$("#server_messages").attr("style", "white-space: pre; color: green");
+				}
+				if (stat != "PROCESSING") {
+					$("#server_messages").text(stat);
+				}
+				$("#number_people").text(obj[1].substring(1, obj[1].length - 1));
+				stat2 = obj[2].substring(1, obj[2].length - 1);
+				if (stat2.includes("CROWD VIOLATION")) {
+					$("#server_messages2").attr("style", "white-space: pre; color: red;");
+				} else if (stat2 == "CROWD DETECTED") {
+					$("#server_messages2").attr("style", "white-space: pre; color: orange;");
+				} else {
+					$("#server_messages2").attr("style", "white-space: pre; color: green;");
+				}
+				if (stat2 != "PROCESSING") {
+					$("#server_messages2").text(stat2);
+				}
+
+				stat3 = obj[3].substring(1, obj[3].length - 1);
+				if (stat3 == "SITTING VIOLATION DETECTED") {
+					$("#server_messages3").attr("style", "white-space: pre; color: red;");
+				} else if (stat3 == "SITTING POSTURE DETECTED") {
+					$("#server_messages3").attr("style", "white-space: pre; color: orange;");
+				} else {
+					$("#server_messages3").attr("style", "white-space: pre; color: green;");
+				}
+				$("#server_messages3").text(stat3);
+				stat4 = obj[4].substring(1, obj[4].length - 1);
+				$("#server_messages4").text(stat4);
+
+
+
+			};
+		}
+	</script>
+	<div class="container-scroller">
+		<!-- partial:partials/_navbar.html -->
+		<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+			<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+				style="    background: lightcyan;height: 80px;">
+				<a class="navbar-brand brand-logo" href="index.html"><img
+						src="{% static 'toshniwal_static/images/logo.svg' %}" alt="logo" /></a>
+				<a class="navbar-brand brand-logo-mini" href="index.html"><img style="width: 80%;height:80%;"
+						src="{% static 'toshniwal_static/images/Logo alone.png' %}" alt="logo" /></a>
+			</div>
+			<div style="background-color: #14aed575;height: 80px;"
+				class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+				<!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button> -->
+				<ul class="navbar-nav mr-lg-2">
+					<li class="nav-item d-none d-lg-block">
+						<!-- <h4 class="font-weight-bold text-dark">AI Driven Fuel Station Management</h4> -->
+						<h4 class="font-weight-bold text-dark">
+							<img style="width:100%; margin-top: 20px;"
+								src="{% static 'toshniwal_static/images/logo-4.png' %}" alt="logo" />
+							<!-- <h4 class="text-info">ADMIN DASHBOARD</h4> -->
+						</h4>
+					</li>
+				</ul>
+				<ul class="navbar-nav navbar-nav-right">
+
+					<li class="nav-item dropdown d-flex mr-4 ">
+						<a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
+							id="notificationDropdown" href="#" data-toggle="dropdown">
+							<i class="fa fa-cog"></i>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+							aria-labelledby="notificationDropdown">
+							
+							<a href="logout" class="dropdown-item preview-item">
+								<i class="fas fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
+					</li>
+				</ul>
+				<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+					data-toggle="offcanvas">
+					<span class="icon-menu"></span>
+				</button>
+			</div>
+		</nav>
+		<!-- partial -->
+		<div class="container-fluid page-body-wrapper">
+			<!-- partial:partials/_sidebar.html -->
+			<nav class="sidebar sidebar-offcanvas" id="sidebar">
+				<div id="userP" class="user-profile">
+					<a href="/viewer" style="color:white">
+						<div class="user-image">
+							<i class="fa fa-user" style="font-size:24px"></i>
+						</div>
+						<div class="user-name">
+							Proprietor Name Owner
+						</div>
+
+					</a>
+				</div>
+				<div id="adminP" class="user-profile">
+					<a href="/viewer/CamSettings" style="color:white">
+						<div class="user-image">
+							<i class="fa fa-camera" style="font-size:24px"></i>
+						</div>
+						<div class="user-name">
+							Camera Settings
+						</div>
+					</a>
+				</div>
+
+
+				<div class="user-profile">
+					<a href="/viewer/dashboard" style="color:white">
+						<div class="user-image">
+							<i style="font-size:24px" class="fa fa-cube" aria-hidden="true"></i>
+						</div>
+						<div class="user-name">
+							Dashboard
+						</div>
+					</a>
+
+				</div>
+
+
+				<div id="superP" class="user-profile">
+					<a href="/viewer/addUser" style="color:white">
+						<div class="user-image">
+							<i style="font-size:25px" class="mdi mdi-account-multiple-plus menu-icon"></i>
+						</div>
+						<div class="user-name">
+							Add User
+						</div>
+					</a>
+				</div>
+
+			</nav>
+			<!-- partial -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<div class="row mt-3">
+						<div class="col-xl-8 d-flex grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h3 class="card-title">Live Camera View</h3>
+									<img src="http://localhost:8000/viewer/stream"
+										class="img-fluid w-100 camera-view" />
+
+									<div class="card-body">
+										<h4 class="card-title">Restricted Area Settings</h4>
+										<br>
+										<form id="restricted_form" class="forms-sample">
+											<div class="row">
+												<div class="col-sm-3">
+													<label for="restricted_area_start">area start horizontal:
+													</label>
+													<br>
+													<input id="restricted_area_start" type="range"
+														name="restricted_area_start" maxlength="100" required>
+
+												</div>
+
+												<div class="col-sm-3">
+
+													<label for="restricted_area_end">area end horizontal:
+													</label>
+													<br>
+													<input id="restricted_area_end" type="range"
+														name="restricted_area_end" maxlength="100" required>
+
+												</div>
+												<div class="col-sm-3">
+													<label for="restricted_area_start_v">area start vertical:
+													</label>
+													<br>
+													<input id="restricted_area_start_v" type="range"
+														name="restricted_area_start_v" maxlength="100" required>
+
+
+												</div>
+
+												<div class="col-sm-3">
+													<label for="restricted_area_end_v">area end vertical:
+													</label>
+													<br>
+													<input id="restricted_area_end_v" type="range"
+														name="restricted_area_end_v" maxlength="100" required>
+												</div>
+											</div>
+											<br>
+											<input class="btn btn-info mr-2" type="submit" value="Update">
+										</form>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 flex-column d-flex grid-margin stretch-card">
+							<div class="row flex-grow">
+								<div class="col-sm-12 grid-margin">
+
+									<div class="card">
+										<div class="card-body">
+											<h4 class="card-title border-bottom pb-3">
+												Live status
+											</h4>
+											<div class="text-dark">
+
+												<div class="d-flex pt-3 justify-content-between">
+													<div class="font-weight-bold mr-sm-12">
+														<p style="pre; white-space: pre; color: green"
+															id="server_messages"></p>
+														<p style="pre; white-space: pre; color: green"
+															id="server_messages2"></p>
+														<p style="pre; white-space: pre; color: green"
+															id="server_messages3"></p>
+														<p style="pre; white-space: pre; color: green"
+															id="server_messages4"></p>
+													</div>
+												</div>
+												<div class="d-flex pt-3 justify-content-between">
+													<div class="font-weight-bold">
+														<div>Number of People</div>
+													</div>
+													<div>
+														<h6 class="font-weight-bold text-info ml-sm-4"
+															id="number_people">
+															processing
+														</h6>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="card">
+										<div class="card-body">
+											<h4 class="card-title">Analysis Settings</h4>
+
+											<form id="analysis_setting" class="forms-sample">
+
+												<div class="form-group">
+													<label for="max_people">Allowed number of people in
+														Storeroom</label>
+													<input type="Number" class="form-control" id="max_people"
+														name="max_people" maxlength="100" required value=10>
+												</div>
+												<div class="form-group">
+													<label for="crowd_time">Number of people in crowd</label>
+													<input id="crowd_people" type="Number" name="crowd_time"
+														maxlength="100" required value=3 class="form-control">
+												</div>
+												<div class="form-group">
+													<label for="crowd_time">Max time for crowd</label>
+													<input class="form-control" id="crowd_time" type="Number"
+														name="crowd_time" maxlength="100" required value=5>
+												</div>
+
+												<div class="form-group">
+													<label for="group_max">Max time for sitting</label>
+													<input class="form-control" id="sitting_time" type="Number"
+														name="group_max" maxlength="100" required value=5>
+												</div>
+												<div class="form-group">
+													<label for="group_max">Max limit for group</label>
+													<input class="form-control" id="group_max" type="text"
+														name="group_max" maxlength="100" required>
+												</div>
+
+												<button type="submit" class="btn btn-info mr-2">Update</button>
+
+											</form>
+										</div>
+									</div>
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- content-wrapper ends -->
+				<!-- partial:partials/_footer.html -->
+				<footer class="footer">
+					<div class="d-sm-flex justify-content-center justify-content-sm-between">
+						<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020
+							<a href="https://www.spritle.com/" target="_blank" class="text-muted">Spritle Software</a>.
+							All rights reserved.</span>
+						<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made
+							with <i class="icon-heart"></i> by
+							<a href="https://spritle.com">Spritle</a></span>
+					</div>
+				</footer>
+				<!-- partial -->
+			</div>
+			<!-- main-panel ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
+	</div>
+
+	<script src="{% static 'toshniwal_static/vendors/base/vendor.bundle.base.js' %}"></script>
+	<script src="{% static 'toshniwal_static/js/off-canvas.js' %}"></script>
+	<script src="{% static 'toshniwal_static/js/template.js' %}"></script>
+	<script src="{% static 'toshniwal_static/js/moment.min.js' %}"></script>
+
+	<script>
+		$.get('userAcess', function (data) {
+			console.log(data);
+			if (data['is_staff'] == false && data['superuser'] == false) {
+				$('#superP').hide();
+				$('#adminP').hide();
+				$('#user_role').html('User');
+
+			} else if (data['is_staff'] == true && data['superuser'] == false) {
+				$('#superP').hide();
+				$('#user_role').html('Admin');
+			} else
+				$('#user_role').html('Super User');
+
+		});
+
+		$('#analysis_setting').submit(function () {
+				var formData = $(this).serialize();
+				$.post('update_data', formData, function (res) {
+
+					$('#max_people').val(res['max_people'])
+					$('#crowd_people').val(res['crowd_people'])
+					$('#crowd_time').val(res['crowd_time'])
+					$('#sitting_time').val(res['sitting_time'])
+
+				});
+				return false
+			})
+
+			$('#restricted_form').submit(function () {
+				var formData = $(this).serialize();
+				$.post('update_restrict_data', formData, function (res) {
+
+					$('#restricted_area_start').val(res['restricted_area_start']);
+					$('#restricted_area_end').val(res['restricted_area_end']);
+					$('#restricted_area_start_v').val(res['restricted_area_start_v']);
+					$('#restricted_area_end_v').val(res['restricted_area_end_v']);
+
+
+				});
+				return false
+			});
+
+
+
+
+
+		// ajaxSetup
+
+		$.ajaxSetup({
+			beforeSend: function (xhr, settings) {
+				if (settings.type.toUpperCase() == "POST") {
+					xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+				}
+			}
+		});
+
+
+		function getCookie(name) {
+			let cookieValue = null;
+			if (document.cookie && document.cookie !== '') {
+				const cookies = document.cookie.split(';');
+				for (let i = 0; i < cookies.length; i++) {
+					const cookie = cookies[i].trim();
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) === (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+	</script>
+
+	<!-- End custom js for this page-->
+</body>
+
+</html>

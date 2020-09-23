@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static  %}
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>People Counting - Dashboard</title>
+	<!-- base:css -->
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/mdi/css/materialdesignicons.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/feather/feather.css' %}" />
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/base/vendor.bundle.base.css' %}" />
+	<!-- endinject -->
+	<!-- plugin css for this page -->
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/flag-icon-css/css/flag-icon.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'toshniwal_static/vendors/font-awesome/css/font-awesome.min.css' %}" />
+
+	<link rel="stylesheet" href="{% static 'toshniwal_static/font-awesome/css/font-awesome.min.css' %}">
+
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" href="{% static 'toshniwal_static/css/style.css' %}" />
+	<!-- endinject -->
+	<link rel="shortcut icon" href="{% static 'toshniwal_static/images/Logo%20alone.png' %}">
+
+	<script type="text/javascript" src="{% static 'toshniwal_static/js/jquery.min.js' %}"> </script>
+
+</head>
+
+<body class="sidebar-icon-only">
+	
+	<script>
+		function add_empty() {
+			var table = document.getElementById("cam_list_table");
+			var count = table.rows.length;
+			var row = table.insertRow(1);
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var cell4 = row.insertCell(3);
+			var cell5 = row.insertCell(4);
+			var cell6 = row.insertCell(5);
+			var cell7 = row.insertCell(6);
+			cell1.innerHTML = "<input type='text' name='cam_url' maxlength='100' required>";
+			cell2.innerHTML =
+				'<div class="form-group m-2"><select name="cam_type" size="1" required style="max-width:100%"><option value="ip" selected>Ip</option><option value="file">File</option><option value="webcam">WebCam</option></select></div>';
+			cell3.innerHTML = '<input type="text" name="cam_name" maxlength="20" required>';
+			cell4.innerHTML = '<input type="text" name="cam_area" maxlength="20" required>';
+			cell5.innerHTML = '<input type="text" name="cam_id" maxlength="10" required>';
+			cell6.innerHTML = '<input type="email" onchange="window.function_select(this)" id=fun' + count.toString() +
+				' list="cam_function_list" name="cam_function" maxlength="100" required multiple>';
+			cell7.innerHTML = '<input type="text" style="display:none;" id=group' + count.toString() +
+				' name="cam_group" maxlength="10">';
+		}
+	</script>
+	<div class="container-scroller">
+		<!-- partial:partials/_navbar.html -->
+		<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+			<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+				style="    background: lightcyan;height: 80px;">
+				<a class="navbar-brand brand-logo" href="index.html"><img
+						src="{% static 'toshniwal_static/images/logo.svg' %}" alt="logo" /></a>
+				<a class="navbar-brand brand-logo-mini" href="index.html"><img style="width: 80%;height:80%;"
+						src="{% static 'toshniwal_static/images/Logo alone.png' %}" alt="logo" /></a>
+			</div>
+			<div style="background-color: #14aed575;height: 80px;"
+				class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+				<!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button> -->
+				<ul class="navbar-nav mr-lg-2">
+					<li class="nav-item d-none d-lg-block">
+						<!-- <h4 class="font-weight-bold text-dark">AI Driven Fuel Station Management</h4> -->
+						<h4 class="font-weight-bold text-dark">
+							<img style="width:100%; margin-top: 20px;"
+								src="{% static 'toshniwal_static/images/logo-4.png' %}" alt="logo" />
+							<!-- <h4 class="text-info">ADMIN DASHBOARD</h4> -->
+						</h4>
+					</li>
+				</ul>
+				<ul class="navbar-nav navbar-nav-right">
+
+					<li class="nav-item dropdown d-flex mr-4 ">
+						<a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
+							id="notificationDropdown" href="#" data-toggle="dropdown">
+							<i class="fa fa-cog"></i>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+							aria-labelledby="notificationDropdown">
+							
+							<a href="logout" class="dropdown-item preview-item">
+								<i class="fas fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
+					</li>
+				</ul>
+				<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+					data-toggle="offcanvas">
+					<span class="icon-menu"></span>
+				</button>
+			</div>
+		</nav>
+		<!-- partial -->
+		<div class="container-fluid page-body-wrapper">
+			<!-- partial:partials/_sidebar.html -->
+			<nav class="sidebar sidebar-offcanvas" id="sidebar">
+				<div id="userP" class="user-profile">
+					<a href="/viewer" style="color:white">
+						<div class="user-image">
+							<i class="fa fa-user" style="font-size:24px"></i>
+						</div>
+						<div class="user-name">
+							Proprietor Name Owner
+						</div>
+
+					</a>
+				</div>
+				<div id="adminP" class="user-profile">
+					<a href="/viewer/CamSettings" style="color:white">
+						<div class="user-image">
+							<i class="fa fa-camera" style="font-size:24px"></i>
+						</div>
+						<div class="user-name">
+							Camera Settings
+						</div>
+					</a>
+				</div>
+
+
+				<div  class="user-profile">
+					<a href="/viewer/dashboard" style="color:white">
+						<div class="user-image">
+							<i style="font-size:24px" class="fa fa-cube" aria-hidden="true"></i>
+						</div>
+						<div class="user-name">
+							Dashboard
+						</div>
+					</a>
+
+				</div>
+
+
+				<div id="superP" class="user-profile">
+					<a href="/viewer/addUser" style="color:white">
+						<div class="user-image">
+							<i style="font-size:25px" class="mdi mdi-account-multiple-plus menu-icon"></i>
+						</div>
+						<div class="user-name">
+							Add User
+						</div>
+					</a>
+				</div>
+
+			</nav>
+			<!-- partial -->
+			<div class="main-panel">
+				<datalist id="cam_type_list">
+					<option value="Ip">
+					<option value="File">
+					<option value="Webcam">
+				</datalist>
+				<datalist id="cam_function_list">
+					<option value="Crowd">
+					<option value="Sitting">
+					<option value="Count">
+					<option value="entry_exit">
+				</datalist>
+				<div class="content-wrapper">
+					<div class="row mt-3">
+						<div class="col d-flex grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h3 class="card-title">Camera Configuration</h3>
+									<button
+										style="background-color: #dde5f0;border: none;color: black;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;"
+										onclick="add_empty()">Add Camera</button>
+									<div class="table-responsive mt-3">
+										<form action="/viewer/CamSettings" method="post" novalidate>
+											<table class="table table-header-bg" id="cam_list_table">
+												<thead>
+													<tr>
+														<th>
+															Cam URL
+														</th>
+														<th>
+															Cam Type
+														</th>
+														<th>
+															Cam Name
+														</th>
+														<th>
+															Cam Area
+														</th>
+														<th>
+															Cam ID
+														</th>
+														<th>
+															Functions separated with comma
+														</th>
+														<th>
+															Cam Group
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for element in cam_list %}
+													<tr>
+														<td>
+															<input type="text" name="cam_url" maxlength="100" required
+																value='{{element.0}}'>
+														</td>
+														<td>
+															<div class="form-group m-2">
+																<select name="cam_type" size="1" style="max-width:100%;"
+																	required>
+																	{{ element.1 | safe }}
+																</select>
+															</div>
+														</td>
+														<td>
+															<input type="text" name="cam_name" maxlength="20" required
+																value='{{element.2}}'>
+														</td>
+														<td>
+															<input type="text" name="cam_area" maxlength="20" required
+																value='{{element.3}}'>
+														</td>
+														<td>
+															<input type="text" name="cam_id" maxlength="10" required
+																value='{{element.4}}'>
+														</td>
+														<td>
+															<input type="email" id="fun{{forloop.counter0}}"
+																list="cam_function_list" name="cam_function"
+																onchange="window.function_select(this)" maxlength="100"
+																required multiple value='{{element.5}}'>
+														</td>
+														<td>
+															<input type="text" id="group{{forloop.counter0}}"
+																name="cam_group" maxlength="10" value='{{element.6}}'>
+														</td>
+													</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+											<br>
+											{% csrf_token %}
+											{{ form }}
+											<input class="btn btn-info" type="submit" value="Update">
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- content-wrapper ends -->
+				<!-- partial:partials/_footer.html -->
+				<footer class="footer">
+					<div class="d-sm-flex justify-content-center justify-content-sm-between">
+						<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020
+							<a href="https://www.spritle.com/" target="_blank" class="text-muted">Spritle Software</a>.
+							All rights reserved.</span>
+						<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made
+							with <i class="icon-heart"></i> by
+							<a href="https://spritle.com">Spritle</a></span>
+					</div>
+				</footer>
+				<!-- partial -->
+			</div>
+			<!-- main-panel ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
+	</div>
+	<!-- container-scroller -->
+
+	<!-- base:js -->
+	<script src="{% static 'toshniwal_static/vendors/base/vendor.bundle.base.js' %}"></script>
+	<!-- endinject -->
+	<!-- Plugin js for this page-->
+	<!-- End plugin js for this page-->
+	<!-- inject:js -->
+	<script src="{% static 'toshniwal_static/js/off-canvas.js' %}"></script>
+	<script src="{% static 'toshniwal_static/js/hoverable-collapse.js' %}"></script>
+	<script src="{% static 'toshniwal_static/js/template.js' %}"></script>
+
+	<!-- End custom js for this page-->
+	<script type="text/javascript">
+		function function_select(event) {
+			selected_id = event.id;
+			row_position = event.id.split('fun')[1];
+			new_values = document.getElementById(selected_id).value;
+			new_values = new_values.split(',');
+			console.log(new_values);
+			if (!(new_values.includes('count') || new_values.includes('Count') || new_values.includes('entry_exit') ||
+					new_values.includes('Entry_exit'))) {
+				document.getElementById("group" + row_position).value = "";
+				document.getElementById("group" + row_position).style.display = "none";
+			} else {
+				document.getElementById("group" + row_position).style.display = "block";
+			}
+		}
+
+		  $.get('userAcess', function (data) {
+                console.log(data);
+                if (data['is_staff'] == false && data['superuser'] == false) {
+                    $('#superP').hide();
+                    $('#adminP').hide();
+                    $('#user_role').html('User');
+
+                } else if (data['is_staff'] == true && data['superuser'] == false) {
+                    $('#superP').hide();
+                    $('#user_role').html('Admin');
+                } else
+                    $('#user_role').html('Super User');
+
+            });
+
+			 $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (settings.type.toUpperCase() == "POST") {
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    }
+                }
+            });
+
+
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+
+     
+	</script>
+</body>
+
+</html>

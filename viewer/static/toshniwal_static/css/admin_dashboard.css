@@ -1,0 +1,44 @@
+
+/* admin dashboard */
+.p-xl-5r{
+  padding-left: 5rem !important;
+  }
+  .ml-300{
+    margin-left: 300px;
+  }
+  .ml-5{
+    margin-left: 5px;
+  }
+  .w-15{
+    width: 15% !important;
+  }
+  .wh-28{
+  width: 28px !important;
+  height: 28px !important;
+  }
+  .flex {
+    display: flex;
+  }
+  .ml-auto {
+    margin-left: auto;
+  }
+  .bg-theme-9 {
+    --bg-opacity: 1;
+    background-color: #91c714;
+    background-color: rgba(145,199,20,var(--bg-opacity));
+  }
+  .mt-6 {
+    margin-top: 1.5rem;
+  }
+  .text-3xl {
+    font-size: 1.875rem;
+  }
+  .font-bold {
+    font-weight: 700;
+  }
+  .card_per{
+    border-radius: 20px !important;
+    width: 40px !important;
+    color: #fff !important;
+    padding: 8px 5px !important;
+  }

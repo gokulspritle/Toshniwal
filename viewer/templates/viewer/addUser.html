@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>People Counting - Dashboard</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/mdi/css/materialdesignicons.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/feather/feather.css' %}" />
+  <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/base/vendor.bundle.base.css' %}" />
+  <!-- endinject -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/flag-icon-css/css/flag-icon.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'toshniwal_static/font-awesome/css/font-awesome.min.css' %}">
+
+
+
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'toshniwal_static/vendors/flag-icon-css/css/flag-icon.min.css' %}" />
+
+
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'toshniwal_static/css/style.css' %}" />
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'toshniwal_static/images/Logo alone.png' %}" />
+</head>
+
+<body class="sidebar-icon-only">
+
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+        style="    background: lightcyan;height: 80px;">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="{% static 'toshniwal_static/images/logo.svg' %}"
+            alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img style="width: 80%;height:80%;"
+            src="{% static 'toshniwal_static/images/Logo alone.png' %}" alt="logo" /></a>
+      </div>
+      <div style="background-color: #14aed575;height: 80px;"
+        class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button> -->
+        <ul class="navbar-nav mr-lg-2">
+          <li class="nav-item d-none d-lg-block">
+            <!-- <h4 class="font-weight-bold text-dark">AI Driven Fuel Station Management</h4> -->
+            <h4 class="font-weight-bold text-dark">
+              <img style="width:100%; margin-top: 20px;" src="{% static 'toshniwal_static/images/logo-4.png' %}"
+                alt="logo" />
+              <!-- <h4 class="text-info">ADMIN DASHBOARD</h4> -->
+            </h4>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+
+          <li class="nav-item dropdown d-flex mr-4 ">
+						<a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
+							id="notificationDropdown" href="#" data-toggle="dropdown">
+							<i class="fa fa-cog"></i>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+							aria-labelledby="notificationDropdown">
+							
+							<a href="logout" class="dropdown-item preview-item">
+								<i class="fas fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
+					</li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+				<div id="userP" class="user-profile">
+					<a href="/viewer" style="color:white">
+						<div class="user-image">
+							<i class="fa fa-user" style="font-size:24px"></i>
+						</div>
+						<div class="user-name">
+							Proprietor Name Owner
+						</div>
+
+					</a>
+				</div>
+				<div id="adminP" class="user-profile">
+					<a href="/viewer/CamSettings" style="color:white">
+						<div class="user-image">
+							<i class="fa fa-camera" style="font-size:24px"></i>
+						</div>
+						<div class="user-name">
+							Camera Settings
+						</div>
+					</a>
+				</div>
+
+
+				<div  class="user-profile">
+					<a href="/viewer/dashboard" style="color:white">
+						<div class="user-image">
+							<i style="font-size:24px" class="fa fa-cube" aria-hidden="true"></i>
+						</div>
+						<div class="user-name">
+							Dashboard
+						</div>
+					</a>
+
+				</div>
+
+
+				<div id="superP" class="user-profile">
+					<a href="/viewer/addUser" style="color:white">
+						<div class="user-image">
+							<i style="font-size:25px" class="mdi mdi-account-multiple-plus menu-icon"></i>
+						</div>
+						<div class="user-name">
+							Add User
+						</div>
+					</a>
+				</div>
+
+			</nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+
+
+          <div class="row">
+
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Create User</h4>
+                  <form method="POST" action="addUser" class="form-sample">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col-md-6">
+
+
+                        <div class="form-group row">
+                          <label for="firstName" class="col-sm-3 col-form-label">First
+                            name</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="firstName" name="firstName"
+                              placeholder="Enter First Name" Required>
+                          </div>
+                        </div>
+
+
+
+                        <div class="form-group row">
+                          <label for="userName" class="col-sm-3 col-form-label">User
+                            Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" name="userName" id="userName"
+                              placeholder="Enter User Name" Required>
+                          </div>
+                        </div>
+
+
+
+
+
+                      </div>
+                      <div class="col-md-6">
+
+
+                        <div class="form-group row">
+                          <label for="lastName" class="col-sm-3 col-form-label">Last
+                            name</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="lastName" name="lastName"
+                              placeholder="Enter Last Name" Required>
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <label for="emailAddress" class="col-sm-3 col-form-label">Email
+                            address</label>
+                          <div class="col-sm-9">
+                            <input type="Email" class="form-control" id="emailAddress" name="emailAddress"
+                              placeholder="emailAddress" Required>
+                          </div>
+                        </div>
+
+
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+
+                        <div class="form-group row">
+                          <label for="password" class="col-sm-3 col-form-label">Password</label>
+                          <div class="col-sm-9">
+                            <input type="password" class="form-control" id="password" name="password"
+                              placeholder="Enter password" Required>
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <div class="col-md-6">
+
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">User role</label>
+                          <div class="col-sm-3">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="user_role" id="user" value="user"
+                                  checked>
+                                User
+                                <i class="input-helper"></i></label>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="user_role" id="admin" value="admin">
+                                Admin
+                                <i class="input-helper"></i></label>
+                            </div>
+                          </div>
+
+                          <div class="col-sm-3">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="user_role" id="superadmin"
+                                  value="superadmin">
+                                Super Admin
+                                <i class="input-helper"></i></label>
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+
+                        <button type="submit" id="Added" class="btn btn-primary mr-2">ADD</button>
+
+                      </div>
+                      <div class="col-md-6">
+
+
+
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">User Details</h4>
+
+                  <div class="table-responsive">
+                    <table id="cam_data" class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            ID
+                          </th>
+                          <th>
+                            User Name
+                          </th>
+                          <th>
+                            Email Address
+                          </th>
+                          <th>
+                            User Role
+                          </th>
+                          <th>
+                            Status
+                          </th>
+                          <th>
+                            Created date
+                          </th>
+                          <th>
+                            Deactive
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="viewData">
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+          </div>
+
+
+        </div>
+
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020
+              Spritle
+              Software<a href="https://www.spritle.com/" target="_blank"></a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made by
+              Spritle</span>
+          </div>
+        </footer>
+      </div>
+      <!-- partial -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+
+  <script src="{% static 'toshniwal_static/vendors/base/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'toshniwal_static/js/off-canvas.js' %}"></script>
+  <script src="{% static 'toshniwal_static/js/template.js' %}"></script>
+  <script src="{% static 'toshniwal_static/js/moment.min.js' %}"></script>
+
+
+  <script>
+        $(document).ready(function () {
+
+            $.get("createUser", function (data, status) {
+                data = JSON.parse(data)
+
+                ele = '';
+                for (i = 0; i < data.length; i++) {
+                   
+
+                    if (data[i]['fields']['is_active'] == true)
+                        status = 'Active'
+                    else
+                        status = 'Deactive'
+                    if (data[i]['fields']['is_superuser'] == '1' && data[i]['fields']['is_staff'] ==
+                        '1')
+                        u_role = 'Super admin'
+                    else if (data[i]['fields']['is_superuser'] == '1')
+                        u_role = 'Admin'
+                    else if (data[i]['fields']['is_staff'] == '0')
+                        u_role = 'User'
+
+
+
+
+                    ele += '<tr><td>' + data[i]['pk'] + '</td><td>' + data[i]['fields']['username'] +
+                        '</td><td>' + data[
+                            i]['fields']['email'] + '</td><td>' + u_role + '</td><td>' + status +
+                        '</td><td>' + moment(data[i]
+                            ['fields']['last_login']).format('YYY-MM-DD HH:mm:ss') + '</td>' +
+                        '<td><a href="{% url "user_delete" %}?user_id=' + data[i]['pk'] +
+                        '" style="font-size:20px" ><i class="mdi mdi-delete"></i></a></td></tr>';
+                }
+
+                //if(data[0][0] != undefined)
+                $("#viewData").html(ele);
+
+            });
+
+
+
+            $.get('userAcess', function (data) {
+                console.log(data);
+                if (data['is_staff'] == false && data['superuser'] == false) {
+                    $('#superP').hide();
+                    $('#adminP').hide();
+                    $('#user_role').html('User');
+
+                } else if (data['is_staff'] == true && data['superuser'] == false) {
+                    $('#superP').hide();
+                    $('#user_role').html('Admin');
+                } else
+                    $('#user_role').html('Super User');
+
+            });
+
+
+
+
+
+            // ajaxSetup
+
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (settings.type.toUpperCase() == "POST") {
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    }
+                }
+            });
+
+
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+
+        });
+    </script>
+
+  
+</body>
+
+</html>

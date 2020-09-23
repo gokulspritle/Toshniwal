@@ -1,0 +1,19 @@
+Inside cam_instructions.txt
+
+--->1. For ip camera, write in one line the ip_address|type_of_camera:
+
+      EXAMPLE:
+
+      rtsp://admin:password@192.0.0.1:5000 | ip
+
+--->2. For in-built webcam write the id of cam (0) | type_of_camera:
+
+      EXAMPLE:
+
+      0 | webcam
+
+--->3. For external webcam write id_of_cam(1) | type_of_camera:
+
+      EXAMPLE:
+
+      1 | webcam
